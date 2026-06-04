@@ -1,5 +1,5 @@
 jupyter-core
-jupyter-notebook
+notebook
 nbconvert
 texlive-xetex
 
