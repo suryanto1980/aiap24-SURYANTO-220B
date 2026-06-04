@@ -1,0 +1,32 @@
+aiap24-your-name/
+├── .github/
+│   └── workflows/
+│       └── github-actions.yml
+├── data/
+│   └── .gitignore					# Contains: delivery.db, *.csv
+├── reports/						# Created by evaluate.py (add to .gitignore if desired, or keep for assessors)
+├── src/
+│   ├── __init__.py
+│   ├── data_loader.py
+│   ├── preprocessing.py
+│   ├── model.py
+│   ├── evaluate.py
+│   └── main.py
+├── eda.ipynb                   
+├── decision_log.md
+├── prompt_chat_history.md
+├── run.sh
+├── requirements.txt
+└── README.md
+
+
+data_loader.py: Function to connect to SQLite and return a Pandas DataFrame.
+
+preprocessing.py: Class or functions to handle missing values, encode categoricals (One-Hot/Target Encoding), and scale numerics. 
+Crucial: Fit transformers on train data only to prevent data leakage.
+
+model.py: Define the model (e.g., XGBClassifier), train it, and save it (using joblib or pickle).
+
+evaluate.py: Calculate metrics (Precision, Recall, F1, ROC-AUC) and generate a confusion matrix/SHAP summary plot. Save these as images to a reports/ folder.
+
+main.py: The orchestrator. It should import the above modules, run the pipeline end-to-end, and accept arguments (e.g., --config config.yaml).
