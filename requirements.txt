@@ -1,7 +1,7 @@
 jupyter-core
 notebook
 nbconvert
-texlive-xetex
+# texlive-xetex
 
 # Core data & ML
 pandas>=2.0.0
