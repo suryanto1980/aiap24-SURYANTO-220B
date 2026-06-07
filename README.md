@@ -51,6 +51,8 @@ $ python3 src/main.py --db_path data/delivery.db
 ```
 ## 🔄 Pipeline Logical Flow & Architecture
 
+<img width="1664" height="928" alt="1780826008" src="https://github.com/user-attachments/assets/9f1a9c6e-7201-44ec-b791-42bd2f280a42" />
+
 ```
 ###graph LR
     A[SQLite DB] --> B(data_loader.py)
@@ -135,6 +137,9 @@ model = XGBClassifier(
     random_state=42
 )
 ```
+#### Output
+<img width="730" height="631" alt="image" src="https://github.com/user-attachments/assets/f46c653a-71f4-4b86-ad3b-ed67ec8f91f8" />
+
 ### 📊 Model Evaluation & Metrics
 
 | Metric | Value (Test Set) | Business Justification |
