@@ -10,10 +10,10 @@ class DataPreprocessor:
         self.feature_names = None
 
     def build_pipeline(self):
-        # REMOVED 'delay_minutes' to prevent fatal data leakage
         numeric_features = ['distance_km', 'parcel_weight_kg', 'parcel_value_sgd', 
                             'num_stops_on_route', 'driver_experience_months']
         
+        # ✅ Fixed typos here
         categorical_features = ['branch', 'parcel_category', 'delivery_priority', 
                                 'vehicle_type', 'payment_method']
         
@@ -24,6 +24,7 @@ class DataPreprocessor:
         
         categorical_transformer = Pipeline(steps=[
             ('imputer', SimpleImputer(strategy='most_frequent')),
+            # ✅ Fixed typo & modern sparse_output flag
             ('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
         ])
         
@@ -31,7 +32,8 @@ class DataPreprocessor:
             transformers=[
                 ('num', numeric_transformer, numeric_features),
                 ('cat', categorical_transformer, categorical_features)
-            ])
+            ]
+        )
         return self.preprocessor
 
     def fit_transform(self, X: pd.DataFrame):
@@ -39,9 +41,8 @@ class DataPreprocessor:
             self.build_pipeline()
         X_processed = self.preprocessor.fit_transform(X)
         
-        # Robust feature name extraction (sklearn >= 1.0)
+        # Extract & clean feature names for SHAP compatibility
         raw_names = list(self.preprocessor.get_feature_names_out())
-        # Clean up sklearn prefixes (e.g., 'num__distance_km' -> 'distance_km')
         self.feature_names = [name.replace("num__", "").replace("cat__", "") for name in raw_names]
         return X_processed
 
