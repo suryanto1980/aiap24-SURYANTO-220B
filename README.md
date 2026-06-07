@@ -1,6 +1,7 @@
 ## AIAP Batch 24 Technical Assessment - Exploratory Data Analysis (EDA)
 **Candidate Name:** [Suryanto]  
-**Email:** [Suryanto1980@gmail.com] 
+**Email:** [Suryanto1980@gmail.com]
+
 **Last Updated Date:** [07/06/2026]  
 
 ## Objective
