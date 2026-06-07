@@ -1,6 +1,7 @@
 ## AIAP Batch 24 Technical Assessment - Exploratory Data Analysis (EDA)
 **Candidate Name:** [Suryanto]  
-**Date:** [05/06/2026]  
+**Email:** [Suryanto1980@gmail.com] 
+**Last Updated Date:** [07/06/2026]  
 
 ## Objective
 The goal of this notebook is to explore the MoveEasy delivery dataset to understand the factors contributing to the drop in customer ratings (from 4.4 to 3.9).
