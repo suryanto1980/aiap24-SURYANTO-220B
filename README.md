@@ -106,6 +106,8 @@ Computes threshold-independent and business-aligned metrics. Generates confusion
 | **Excluded (Leakage)** | `delivery_datetime`, `feedback_datetime`, `delay_minutes`, all IDs & timestamps | Explicitly dropped from `X` before splitting | Cannot be known at prediction time. Inclusion would cause fatal production failure. |
 | **Target Variable** | `promised_delivery_datetime`, `delivery_datetime`, `rating` | `is_trouble = 1` if (`delivery > promised`) OR (`rating ≤ 2`), else `0` | Aligns with Head of Operations' definition of "trouble". Missing ratings safely defaulted to `0`. |
 
+**Note on Feature Engineering**: Given the strict pre-delivery constraint, complex feature interactions were deliberately avoided to prevent overfitting on limited signals. The primary engineering step was the composite target variable (is_trouble = Late OR Rating ≤ 2), which consolidates operational failure and customer dissatisfaction into a single, actionable binary signal. Raw pre-delivery features were preserved in their native form to maintain dispatcher interpretability.
+
 ###  Model Selection & Justification
 
 | Algorithm | Status | Rationale |
@@ -119,6 +121,8 @@ Computes threshold-independent and business-aligned metrics. Generates confusion
 - **Non-Linear Relationship Capture:** Delivery trouble emerges from feature interactions (e.g., inexperienced drivers on long routes with sensitive parcels). Gradient-boosted trees model these automatically without manual feature engineering.
 - **Production Efficiency:** Fast training and lightweight serialization (`joblib`). Inference latency <50ms per delivery, suitable for real-time dispatch scoring at booking/pickup time.
 - **Explainability:** Fully compatible with SHAP values, enabling actionable risk breakdowns for dispatchers rather than black-box predictions.
+
+**Optimization Approach**: Hyperparameters were validated via manual grid search on a held-out validation fold, prioritizing Recall optimization over raw accuracy. max_depth=5 was selected to balance non-linear capture with generalization, while learning_rate=0.1 ensures stable convergence without overfitting to the ~11% minority class. Final selection was locked to random_state=42 for assessment reproducibility.
 
 #### ⚙️ Key Configuration Used
 ```python
